@@ -34,7 +34,7 @@ The data rate is then 600 bits/s. Higher and lower rates are also supported.
 #define SPARK	1		//Temporary until done by IDE compiler
 
 #include "application.h"
-#include "SparkIntervalTimer/SparkIntervalTimer.h"
+#include "../SparkIntervalTimer/SparkIntervalTimer.h"
 
 
 //timer scaling factors for different transmission speeds
