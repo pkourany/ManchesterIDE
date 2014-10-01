@@ -1,7 +1,7 @@
 {
 	"name": "Manchester",
 	"author": "Paul Kourany",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "Unspecified",
 	"description": "Manchester library for 315/433MHz radios "
 }
