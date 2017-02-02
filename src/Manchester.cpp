@@ -1,5 +1,6 @@
 /*
-!!! Adapted for Spark by Paul Kourany, using SparkIntervalTimer by Paul Kourany !!!
+!!! Adapted for Particle devices by Paul Kourany, using SparkIntervalTimer by Paul Kourany !!!
+!!! Updated to Libraries 2.0, Feb 2, 2017
 
 This code is based on the Atmel Corporation Manchester
 Coding Basics Application Note.
@@ -30,7 +31,7 @@ The data rate is then 600 bits/s.
 
 void txmtISR(void);
 
-#if defined (SPARK)
+#if defined (PARTICLE)
 IntervalTimer txmtTimer;
 #endif
 
@@ -82,7 +83,7 @@ void Manchester::setupTransmit(uint8_t pin, uint8_t SF)
   //because of high ovehead associated with it, instead we use this 
   //emprirically determined values to compensate for the time loss
 
-  #if !defined (SPARK)
+  #if !defined (PARTICLE)
   #if F_CPU == 1000000UL
     uint16_t compensationFactor = 88; //must be divisible by 8 for workaround
   #elif F_CPU == 8000000UL
@@ -92,13 +93,13 @@ void Manchester::setupTransmit(uint8_t pin, uint8_t SF)
   #endif  
   #else
 	uint16_t compensationFactor = 4; 
-  #endif  //Spark
+  #endif  //PARTICLE
   
  
   delay1 = (HALF_BIT_INTERVAL >> speedFactor) - compensationFactor;
   delay2 = (HALF_BIT_INTERVAL >> speedFactor) - 2;
   
-  #if !defined (SPARK)
+  #if !defined (PARTICLE)
   #if F_CPU == 1000000UL
     delay2 -= 22; //22+2 = 24 is divisible by 8
     if (applyWorkAround1Mhz) { //definition of micro delay is broken for 1MHz speed in tiny cores as of now (May 2013)
@@ -108,7 +109,7 @@ void Manchester::setupTransmit(uint8_t pin, uint8_t SF)
       delay2 >>= 3;
     }
   #endif
-  #endif //Spark
+  #endif //PARTICLE
 }
 
 
@@ -392,7 +393,7 @@ void MANRX_SetupReceive(uint8_t speedFactor)
     TIMSK = _BV(OCIE1A); // Turn on interrupt
     TCNT1 = 0; // Set counter to 0
 
-  #elif defined(SPARK)
+  #elif defined(PARTICLE)
 
 	txmtTimer.begin(txmtISR, (512 >> speedFactor), uSec);
 
@@ -494,7 +495,7 @@ ISR(TIMER1_COMPB_vect)
 ISR(TIM1_COMPA_vect)
 #elif defined(__AVR_ATmega32U4__)
 ISR(TIMER3_COMPA_vect)
-#elif defined(SPARK)
+#elif defined(PARTICLE)
 void txmtISR(void)
 #else
 ISR(TIMER2_COMPA_vect)

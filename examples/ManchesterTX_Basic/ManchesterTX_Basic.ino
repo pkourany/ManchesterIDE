@@ -18,7 +18,7 @@
 
 
 */
-#include "Manchester/Manchester.h"
+#include "Manchester.h"
 
 #define TX_PIN	D2	//pin where your transmitter is connected
 #define LED_PIN	D7	//pin for blinking LED

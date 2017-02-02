@@ -17,7 +17,7 @@
   MAN_38400 7
 
 */
-#include "Manchester/Manchester.h"
+#include "Manchester.h"
 
 #define RX_PIN	D3	//pin where your receiver is connected
 #define LED_PIN D7	//pin for blinking LED
